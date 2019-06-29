@@ -5,9 +5,7 @@ var mongoose = require('mongoose');
 var axios = require('axios');
 var cheerio = require('cheerio');
 var bodyparser = require('body-parser');
-
-
-
+var request = require('request');
 
 // Sets up port to host's designated port or 3000
 var PORT = process.env.PORT || 3000;
