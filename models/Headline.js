@@ -1,24 +1,33 @@
-var mongoose = require('mongoose');
+// Requires mongoose
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+// Creates schema class
+const Schema = mongoose.Schema;
 
-var headlineSchema = new Schema({
-  headline: {
+// Creates headline schema
+const headlineSchema = new Schema({
+  title: {
     type: String,
-    required: true,
-    unique: true
   },
   summary: {
     type: String,
-    required: true
   },
-  date: String,
+  link: {
+    type: String,
+    unique: true 
+  },
   saved: {
     type: Boolean,
     default: false
-  }
+  },
+  notes: [{
+     type: Schema.Types.ObjectId,
+     ref: 'Note'
+  }]
 });
 
-var Headline = mongoose.model('Headline', headlineSchema);
+// Create the headline model
+const Headline = mongoose.model('Headline', headlineSchema);
 
+// Exports the model
 module.exports = Headline;

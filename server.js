@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 var axios = require('axios');
 var cheerio = require('cheerio');
 var bodyparser = require('body-parser');
-var request = require('request');
 
 // Sets up port to host's designated port or 3000
 var PORT = process.env.PORT || 3000;
@@ -13,34 +12,27 @@ var PORT = process.env.PORT || 3000;
 // Sets up express app
 var app = express();
 
-// Sets up an express router
-var router = express.Router();
+// Use body-parser for handling form submissions
+app.use(bodyparser.urlencoded({ extended: false }));
 
-// Requires routes file to pass through router object
-require('./config/routes')(router);
+require('./controllers/scrape.js')(app);
+require('./controllers/headlines.js')(app);
+require('./controllers/notes.js')(app);
 
-// Designates our public folder as a static directory
+// Uses express.static to serve the public folder as static directory
 app.use(express.static(__dirname + '/public'));
 
-// Connects handlebars to express app
-app.engine('handlebars', exphbs({
-  defaultLayout: 'main'
+// Sets up handlebars
+app.engine('handlebars', exphbs({ defaultLayout: 'main',
+partialsDir: __dirname+ '/views/layouts/partials'
 }));
 app.set('view engine', 'handlebars');
-
-// Sets up body parser
-app.use(bodyparser.urlencoded({
-  extended: false
-}));
-
-// Sets up requests to go through router middleware
-app.use(router);
 
 // If deployed, uses deployed db, otherwise uses local mongoHeadlines db
 var db = process.env.MONGODB_URI || 'mongodb://localhost/mongoHeadlines';
 
 // Connects mongoose to db
-mongoose.connect(db, function(error) {
+mongoose.connect(db, { useNewUrlParser: true }, function(error) {
   if (error) {
     console.log(error);
   } else {
