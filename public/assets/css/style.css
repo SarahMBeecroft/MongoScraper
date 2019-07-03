@@ -1,11 +1,27 @@
+body {
+  font-family: 'Heebo', sans-serif;
+}
+
 /* Jumbotron */
 .jumbotron {
   width: 100%;
   height: 300px;
+  background-image: url("../images/desk.jpg");
+  background-size: cover;
+}
+
+/* Jumbotron font */
+.display-4 {
+  font-family: 'Francois One', sans-serif;
+  color: lightgray !important; 
 }
 
 .scrape-new {
-  margin-top: 5px;
+  margin-top: 7px;
+}
+
+div.col-md-12 {
+  margin-left: 0;
 }
 
 /* Footer */
@@ -14,13 +30,13 @@
   position: fixed; 
   bottom: 0;
   width: 100%;
-  height: 100px;
-  background-color: black;
+  height: 60px;
+  background-color: #313131;
 }
 
 .footerText {
-  color: white;
+  color: lightgray;
   text-align: center;
   font-size: 16px;
-  margin-top: 30px;
+  margin-top: 17px;
 }
