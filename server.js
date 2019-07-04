@@ -13,8 +13,9 @@ var PORT = process.env.PORT || 3000;
 var app = express();
 
 // Use body-parser for handling form submissions
-app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.urlencoded({ extended: true }));
 
+// Requires app js files
 require('./controllers/scrape.js')(app);
 require('./controllers/headlines.js')(app);
 require('./controllers/notes.js')(app);

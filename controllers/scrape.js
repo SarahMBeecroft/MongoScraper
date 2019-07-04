@@ -9,13 +9,13 @@ var cheerio = require('cheerio');
 var request = require('request');
 
 module.exports = function (app) {
-
+		
 // Scrapes NPR for news articles
 app.get('/scrape', function(req, res) {
 
 	request('http://www.npr.org/sections/news/', function(error, response, html) {
 
-			const $ = cheerio.load(html);
+			var $ = cheerio.load(html);
 
 			console.log($('article.item').length)
 
@@ -46,4 +46,6 @@ app.get('/scrape', function(req, res) {
 			});
 	})
 });
+
 }
+

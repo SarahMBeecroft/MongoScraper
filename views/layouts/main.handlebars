@@ -3,17 +3,15 @@
     <head>
         <meta charset='UTF-8'>
 
-        <!-- Links to jQuery -->
-        <script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
-
+         <!-- Links to jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        
         <!-- Links to Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Francois+One|Heebo&display=swap" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Francois+One|Heebo&display=swap' rel='stylesheet'>
 
         <!-- Links to Bootstrap -->
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
-
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css' integrity='sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp' crossorigin='anonymous'>
-
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa' crossorigin='anonymous'></script>
         
         <!--Links to my style sheet -->
@@ -29,13 +27,13 @@
             </div>
             <div id='navbar' class='navbar-collapse collapse'>
                 <ul class='nav navbar-nav'>
-                   <!-- <li><a href='/'><b>Home</b></a></li>-->
-                    <li><a href='/saved'><b>Saved Articles</b></a></li>
+                          <li><a href='/saved'><b>Saved Articles</b></a></li>
                     <li><button type='button' class='btn btn-info scrape-new'><b>Scrape New Articles!</b></button></li>
                 </ul>
             </div>
         </div>
     </nav>
+
     {{{ body }}}
 
     <!-- Footer -->
@@ -45,9 +43,36 @@
      </div>
     </footer>
 
-        <!--External JS Link-->
-        <script src='/assets/js/app.js'></script>
-        <script src='../../controllers/scrape.js'></script>
-        
+    <!--External JS Link-->
+    <script src="../../public/assets/javascript/app.js"></script>
+
+    <!-- Scrape click event -->
+    <script>
+    $(document).ready(function() {
+    $('.scrape-new').on('click', function() {
+        $.ajax({
+            method: 'GET',
+            url: '/scrape',
+        }).done(function(data) {
+        console.log(data)
+        alert('Scrape is complete!')
+        window.location = '/'
+    });
+});
+
+    // Save article click event
+    $('.save').on('click', function() {
+    var thisId = $(this).attr('data-id');
+        $.ajax({
+            method: 'POST',
+            url: '/articles/save/' + thisId
+        }).then(function(data) {
+        alert('Your article is saved!')
+        window.location = '/'
+  });
+});
+
+});</script>
+            
     </body>
 </html>
