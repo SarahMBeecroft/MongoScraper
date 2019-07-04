@@ -49,9 +49,6 @@
         </div>
     </footer>
 
-    <!--External JS Link-->
-    <script src="../../public/assets/javascript/app.js"></script>
-
     <!-- Scrape click event -->
     <script>
         $(document).ready(function () {
@@ -68,22 +65,43 @@
 
             // Save article click event
             $(document).ready(function () {
-            $('.save').on('click', function () {
-                event.preventDefault();
-                var thisId = $(this).attr('data-id');
-                $.ajax({
-                    url: '/articles/save/' + thisId,
-                    type: 'POST',
-                    success: function (response) {
-                        window.location.href = '/';
-                    },
-                    error: function (error) {
-                        console.log('error ' + JSON.stringify(error));
-                    }
+                $('.save').on('click', function () {
+                    event.preventDefault();
+                    var thisId = $(this).attr('data-id');
+                    $.ajax({
+                        url: '/articles/save/' + thisId,
+                        type: 'POST',
+                        success: function (response) {
+                            window.location.href = '/';
+                        },
+                        error: function (error) {
+                            console.log('error ' + JSON.stringify(error));
+                        }
+                    });
                 });
             });
         });
-      });
+
+            // Delete article click event 
+            $(document).ready(function () {
+                $('.delete').on('click', function () {
+                    event.preventDefault();
+                    var thisId = $(this).attr('data-id');
+                    $.ajax({
+                        url: '/articles/delete/' + thisId,
+                        type: 'POST',
+                        success: function (response) {
+                            alert('The article was deleted!')
+                            window.location.href = '/saved';
+                        },
+                        error: function (error) {
+                            console.log('error ' + JSON.stringify(error));
+                        }
+                    });
+                });
+            });
+
+
     </script>
 
 </body>

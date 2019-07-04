@@ -46,7 +46,7 @@ module.exports = function (app) {
   });
 
   // Route to save an article by id
-  app.post('/articles/save/:id', function(req,res) { 
+  app.post('/articles/save/:id', function(req, res) { 
     db.Headline.findOneAndUpdate(
       {
         _id: req.params.id
@@ -64,22 +64,16 @@ module.exports = function (app) {
   });
 
   // Route to delete an article by id
-  app.post('/articles/delete/:id', function (req, res) {
-    // Updates the saved boolean value
-    db.Headline.findOneAndUpdate({
-        '_id': req.params.id
-      }, 
+  app.post('/articles/delete/:id', function(req, res) {
+    db.Headline.deleteOne(
       {
-        'saved': false,
-        'notes': []
-      })
-      .then(function (err, doc) {
-        if (err) {
-          console.log(err);
-        } else {
-          // Sends doc to browser
-          res.send(doc);
-        }
-      });
-  });
+        _id: req.params.id
+      }
+    ).then(function(response) {
+      console.log('The article was deleted!');
+      res.end();
+    }).catch(function(err) {
+      res.writeContinue(err);
+    });
+  }); 
 }
