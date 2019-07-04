@@ -3,6 +3,7 @@ var db = require('../models');
 
 // Requires express
 var express = require('express');
+var mongoose = require('mongoose');
 
 // Mongo functions
 module.exports = function (app) {
@@ -45,23 +46,20 @@ module.exports = function (app) {
   });
 
   // Route to save an article by id
-  app.post('/articles/save/:id', function (req, res) {
-    db.Headline.findOneAndUpdate({
-        '_id': req.params.id
-      }, 
+  app.post('/articles/save/:id', function(req,res) { 
+    db.Headline.findOneAndUpdate(
       {
-        'saved': false
-      }, 
+        _id: req.params.id
+      },
       {
-        new: false
-      })
-      .then(function (err, doc) {
-        if (err) {
-          console.log(err);
-        } else {
-          // Sends doc to browser
-          res.send(doc);
-        }
+        // Updates boolean value to true
+        $set: {saved: true}
+      }
+    ).then(function(dbHeadline) {
+      console.log(dbHeadline);
+      res.json(dbHeadline);
+    }).catch(function(err) {
+      res.writeContinue(err);
     });
   });
 
