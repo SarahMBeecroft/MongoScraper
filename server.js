@@ -33,13 +33,18 @@ app.set('view engine', 'handlebars');
 var db = process.env.MONGODB_URI || 'mongodb://localhost/mongoHeadlines';
 
 // Connects mongoose to db
-mongoose.connect(db, { useNewUrlParser: true }, function(error) {
+mongoose.connect(db, function(error) {
   if (error) {
     console.log(error);
   } else {
     console.log('Mongoose connection is successful');
   }
 });
+
+// Avoids deprecation warnings
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 // Listens on port
 app.listen(PORT, function() {
