@@ -1,2 +1,2 @@
 # NPR News Mongo Scraper
-![alt text](https://ibb.co/t8w7rqc "Screenshot of NPR News Mongo Scraper Home Page")
+![alt text](https://imgur.com/a/qlREd7Z "Screenshot of NPR News Mongo Scraper Home Page")
